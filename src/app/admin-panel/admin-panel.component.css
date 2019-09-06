@@ -1,0 +1,12 @@
+.modal-lg .modal-dialog{
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .input-group-prepend {
+    width : 32%; /*adjust as needed*/
+  }
+  
+  .input-group-prepend span {
+    width: 100%;
+    overflow: hidden;
+  }

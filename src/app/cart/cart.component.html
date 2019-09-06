@@ -1,0 +1,53 @@
+<div class="container-fluid">
+  <div class="card">
+    <div class="card-body">
+      <h1 style="color:chocolate">Items in your cart:
+        <span style="margin-left: 5%;margin-right: 22%;color: greenyellow">
+          Total value is: {{allTotal | number:'1.2-5'}}</span>
+        <button class="btn btn-outline-success" (click)="acc.toggle('static-2')">CheckOut</button>
+      </h1>
+
+      <table class="table table-bordered table-responsive table-hover">
+        <thead class="thead-light">
+          <tr>
+            <th>Image</th>
+            <th>Name & Description</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Add/Remove</th>
+            <th>Total For Item</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tr *ngFor="let prod of productAddedTocart;let q = index">
+         <!-- <td>{{prod.UnitPrice}}</td>-->
+          <!-- <input [ngModel] ="prod.Id" type="hidden" value="prod.Id"> -->
+          <td>
+            <div>
+            <input type="checkbox" class="" (click)="onSelect(product)"/>
+          </div><div>
+          <img src="./../../../assets/img/{{prod.ImageUrl}}" width="250px;" height="270px;" />
+        </div>  
+        </td>
+          <td class="text-center">{{prod.ProductName}} - {{prod.Description}}</td> 
+         <!-- <td *ngIf="ltotal.length === 0">{{prod.UnitPrice}}</td> -->
+          <td>{{ltotal[q] | number:'1.2-5'}}</td>
+          <td>{{prod.Quantity}}</td>
+          <td>
+            <div class="form-inline">
+              <button type="button" (click)="onAddQuantity(prod)" class="btn btn-success">+</button>
+              <input type="text" [ngModel]="prod.Quantity" (ngModelChange)="prod.Quantity=$event" class="form-control form-inline" id="count">
+              <button type="button" (click)="onRemoveQuantity(prod)" class="btn btn-danger">-</button>
+            </div>
+          </td>
+          <td></td>
+          <td><button type="checkbox" class="btn btn-sm btn-primary custom-btn text-white" (click)="onSelect(product)">
+            <i class="fa fa-window-close fa-lg" aria-hidden="false" style="font-size:20px">
+            </i></button>
+          </td>
+          <!--<td>{{prod.UnitPrice * prod.Quantity}}</td>-->
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>

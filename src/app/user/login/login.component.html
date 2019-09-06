@@ -1,0 +1,61 @@
+
+<div class="container">
+    <div class="row">
+     <div class="col-sm-12 offset-sm-0 text-center" align="center">
+   
+       <h1 class="headerWelcome">
+         Register for Pick n Pay Online
+       </h1>
+       <div class="subHeadArea">
+         <h3 class="ss heading2">
+           Sign up in seconds to start shopping online, and get groceries and <br> more delivered to your door.
+         </h3>
+       </div>
+
+<form #form='ngForm' class="justify-content-center offset-sm-3" autocomplete="off" (submit)="onSubmit(form)" align="center">
+  <table class="table-bordered" style="border: none">
+    <tbody>
+        <tr>
+            <div class="form-group required">
+            <td>
+                <div class="col-md-2">
+                    <label for="FormControlUserName" style="color: black;font-size: small;font-weight: 600;" >Email/username</label>
+                </div>
+            </td>
+            <td>
+                <div class="col-lg-16">
+                    <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+            </td>
+            </div>                   
+        </tr>
+ 
+        <tr>
+            <div class="form-group required">
+            <td>
+                <div class="col-md-2">
+                    <label for="FormControlPassword" style="color: black;font-size: small;font-weight: 600;" >Password</label>
+                </div>
+            </td>
+            <td>
+                <div class="col-md-16">
+                    <input  type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+            </td>  
+            </div>                 
+        </tr>
+    </table>
+    <div class="form-row justify-content-center" style="margin-right: 30%;">
+        <div class="form-group col-sm-4">
+            <button type="submit"  class="btn btn-outline-success" routerLink='/user/registration'><b>SIGN UP</b></button>  
+            
+            <button type="submit"  class="btn btn-outline-success" [disabled]="form.invalid"><b>LOG IN</b></button>  
+        </div>        
+      </div>
+    </form>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,14 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@fortawesome/fontawesome-free/css/all.css";
+.modal-lg{
+    max-width: 50% !important;
+    width: 50% !important;
+  }
+  .errorMessage {
+    color: red;
+  }
+  html {
+    font-family: sans-serif;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  } 

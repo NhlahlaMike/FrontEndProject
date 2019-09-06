@@ -1,0 +1,31 @@
+/*.modal-open .fullscreen .modal-dialog {
+    max-width: 100%;
+  }
+  
+.modal-sm {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  */
+  .btn.btn-primary.custom-btn {
+    background-color: #c3bebe;
+    border-width: 1px;
+    border-color: #c9c5c5;
+    border-style: solid;
+    border-top-style: solid;
+    border-top-width: 2px;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+  }
+  input[type="checkbox"]{
+    width: 20px;
+    height: 20px;
+}
+  .btn-sm {
+    padding: 0px 0px;
+    font-size: 5px;
+    border-radius: 0px;
+
+}
+td{ height: 10px; }
+tr{ line-height: 10px; }

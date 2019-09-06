@@ -1,0 +1,73 @@
+.headerWelcome {
+    font-family: Arial, sans-serif, Helvetica;
+    font-size: 28px; 
+    font-weight: 900;
+    color: #a9a9a9; 
+    margin-top: 1%; 
+}
+.container {
+margin-top: 5%;
+}
+.termsAndConditionsTextArea {
+    width: 300px; 
+    padding: 5px; 
+    height: 150px;
+}
+.ss.heading2 {
+    font-size: 16px;  
+    color: #a3a3a3; 
+    width: 70%; 
+    font-weight: 900;
+    text-align: center; 
+    margin: 1% auto;
+}
+table {
+    border-right: none;
+}
+.table-bordered {
+    border-top: none;
+    border-bottom: none;
+}
+table td {
+    position: relative;
+    width: 20rem !important;
+  }
+  
+table td input.form-control {
+    position: absolute;
+    display: block;
+    top:0;
+    left:0;
+    margin: 0;
+    background-color: lightgray;
+    height: 100%;
+    max-width: auto;
+    border: none;
+    /*padding: 22px;*/
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+  table td input.form-control:focus {
+    border: none;
+    box-shadow: none;
+    background-color:#ffffff;
+  }
+  /*.table tr,.table td*/
+  table tr {
+    height: 0.75rem !important;
+    overflow:hidden;               
+    }
+
+    div.form-group label{
+        color: black;
+        font-weight: bold;
+    }
+    
+    div.form-group.required>label:first-child:after{
+        content:'*';
+        color: #dc3545;
+        padding-left: 5px;
+    }
+    .form-group{
+        margin-bottom: 4px;
+        }

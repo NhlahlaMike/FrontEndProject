@@ -1,0 +1,73 @@
+<div class="row">
+<div class="col-md-5" *ngFor="let product of products"> 
+        <div class="thumbnail">
+          <img src="./../../../assets/img/{{product.imageUrl}}" alt="">
+          <div class="caption">
+            <p>
+              This is the best product available in the market.
+            </p>
+            <p>
+              <strong>Price: </strong> $24
+            </p>
+            <div class="col-md-4">
+              <div class="row">
+                  <button class="btn btn-primary custom-btn text-white"  role="button">
+                      <i class="fa fa-minus" style="font-size:15px"></i>
+                  </button>
+                  <div class="col-md-5">
+                    <input type="text"  class="form-control text-center bg-white font-weight-bold " size="1" data-max="999" data-min="1" id="counterval" value="1">
+                </div>
+                  <button class="btn btn-primary custom-btn text-white"  role="button">
+                      <i class="fa fa-plus" style="font-size:15px"></i>
+                  </button>
+              </div>
+            </div><br/>
+            <div class="col-md-4">
+              <button  class="btn btn-primary custom-btn-red text-white" (click)="addtocart()" role="button"><b>Add to Trolly</b></button>      
+            </div>
+          </div>
+        </div>
+      </div>
+</div> 
+
+<div class="row">
+  <div *ngFor="let product of products" class="col-md-4">
+    <div class="card">
+      <div class="card-body">
+             <div class="thumbnail">
+                <img src="./../../../assets/img/{{product.ImageUrl}}" alt="">
+                <div class="caption">
+                  <p>
+                    This is the best product available in the market.
+                    {{isDisabled}}
+                  </p>
+                  <ul class="list-group">
+                    <li class="list-group-item"><strong>Email : </strong >{{product.Id}}</li>
+                  </ul> <br>
+                    <strong>Price: </strong> 
+                    <ul class="list-group">
+                      <li class="list-group-item"><strong>Email : </strong >{{product.Quantity}}</li>
+                    </ul>
+                    <input type="number" [ngModel] ="product.Id"  (ngModelChange) ="product.Id=$event" value="product.Id">                  
+                  <div class="col-md-10">
+                    <div class="row">
+                        <button class="btn btn-primary custom-btn text-white" [disabled]="product.isDisabled===false" (click)="onMinusQuantity(product, product.Quantity)" role="button">
+                            <i class="fa fa-minus" style="font-size:15px"></i>
+                        </button>
+                        <div class="col-md-4">
+                          <input type="number"  [ngModel] ="product.Quantity" (ngModelChange) ="product.Quantity=$event" class="form-control form-inline text-center bg-white font-weight-bold " size="1" data-max="999" data-min="1" id="counterval">
+                      </div>
+                        <button class="btn btn-primary custom-btn text-white" (click)="onAddQuantity(product)" role="button">
+                            <i class="fa fa-plus" style="font-size:15px"></i>
+                        </button>
+                    </div>
+                  </div><br/>
+                  <div class="col-md-8">
+                    <button  class="btn btn-primary custom-btn-red text-white" (click)="OnAddCart(product)" role="button"><b>Add to Trolly</b></button>      
+                  </div>
+                </div>
+              </div>  
+          </div>
+  </div>
+</div>
+</div>  

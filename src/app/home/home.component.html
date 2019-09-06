@@ -1,0 +1,33 @@
+
+<app-nav-menu></app-nav-menu>
+<nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand text-white">JWT Auth System</a>
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/adminpanel">Admin Panel</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/user/login">login</a>
+        </li>    
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/user/registration">register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cart">cart</a>
+          </li>          
+    </ul>
+    <button type="submit" class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
+  </nav>
+  
+  <div class="card m-5" style="width:18rem" *ngIf="userDetails">
+    <ul class="list-group">
+      <li class="list-group-item"><strong>Username : </strong>{{userDetails.userName}}</li>
+      <li class="list-group-item"><strong>FullName : </strong>{{userDetails.fullName}}</li>
+      <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
+    </ul>
+  </div>
+  <br/>
+<app-carousel></app-carousel>
+<app-toponlinedeals></app-toponlinedeals>
+
+
