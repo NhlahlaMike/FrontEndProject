@@ -21,27 +21,29 @@
         </thead>
         <tr *ngFor="let prod of productAddedTocart;let q = index">
          <!-- <td>{{prod.UnitPrice}}</td>-->
-          <!-- <input [ngModel] ="prod.Id" type="hidden" value="prod.Id"> -->
+           <!--<input [ngModel] ="prod.Id" type="hidden" class="form-control" value="prod.Id">-->
           <td>
             <div>
-            <input type="checkbox" class="" (click)="onSelect(product)"/>
+            <input type="checkbox" class="" (click)="onSelect(prod)"/>
           </div><div>
           <img src="./../../../assets/img/{{prod.ImageUrl}}" width="250px;" height="270px;" />
         </div>  
         </td>
           <td class="text-center">{{prod.ProductName}} - {{prod.Description}}</td> 
          <!-- <td *ngIf="ltotal.length === 0">{{prod.UnitPrice}}</td> -->
-          <td>{{ltotal[q] | number:'1.2-5'}}</td>
+         <!-- Display array values with decimal numbers -->
+          <!--<td>{{ltotal[q] | number:'1.2-5'}}</td>-->
+          <td>R{{(prod.UnitPrice * prod.Quantity) | number:'1.2-5'}}</td>
           <td>{{prod.Quantity}}</td>
           <td>
             <div class="form-inline">
               <button type="button" (click)="onAddQuantity(prod)" class="btn btn-success">+</button>
               <input type="text" [ngModel]="prod.Quantity" (ngModelChange)="prod.Quantity=$event" class="form-control form-inline" id="count">
-              <button type="button" (click)="onRemoveQuantity(prod)" class="btn btn-danger">-</button>
+              <button type="button" [disabled]="prod.isDisabled===false" (click)="onRemoveQuantity(prod)" class="btn btn-danger">-</button>
             </div>
           </td>
           <td></td>
-          <td><button type="checkbox" class="btn btn-sm btn-primary custom-btn text-white" (click)="onSelect(product)">
+          <td><button type="checkbox" class="btn btn-sm btn-primary custom-btn text-white" (click)="onRemoveSelected(prod)">
             <i class="fa fa-window-close fa-lg" aria-hidden="false" style="font-size:20px">
             </i></button>
           </td>

@@ -35,7 +35,9 @@
     <div class="card">
       <div class="card-body">
              <div class="thumbnail">
-                <img src="./../../../assets/img/{{product.ImageUrl}}" alt="">
+               <!--it works-->
+                <!--  <img src="./../../../assets/img/{{product.ImageUrl}}" alt="">-->
+                <img [src]="'./../../../assets/img/' + product.ImageUrl" alt="">
                 <div class="caption">
                   <p>
                     This is the best product available in the market.

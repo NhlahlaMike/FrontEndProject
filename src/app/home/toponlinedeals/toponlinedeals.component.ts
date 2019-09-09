@@ -192,7 +192,7 @@ onMinusQuantity(product: Product) {
   }
   if (Number(this.products.find(p => p.Id === product.Id).Quantity) >= 2) {
     this.products.find(p => p.Id === product.Id).Quantity = product.Quantity - 1;
-    this.products.find(p => p.Id === product.Id).isDisabled = true;
+    this.products.find(p => p.Id === product.Id).isDisabled = false;
   }
 }
 

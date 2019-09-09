@@ -12,7 +12,6 @@ import { UserService } from '../shared/user.service';
 import { Registration } from '../interfaces/registration';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
-
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -99,7 +98,9 @@ export class CartComponent implements OnInit {
   onAddQuantity(product: Product) {
     // Get Product
     this.productAddedTocart = this.pservice.getProductFromCart();
-    this.productAddedTocart.find(p => p.Id === product.Id).Quantity = product.Quantity + 1;
+    if (Number(this.productAddedTocart.find(p => p.Id === product.Id).Quantity) >= 1) {
+      this.productAddedTocart.find(p => p.Id === product.Id).Quantity = product.Quantity + 1;
+      this.productAddedTocart.find(p => p.Id === product.Id).isDisabled = true;
     // Find produc for which we want to update the quantity
     // let tempProd= this.productAddedTocart.find(p=>p.Id==product.Id);
     // tempProd.Quantity=tempProd.Quantity+1;
@@ -108,22 +109,27 @@ export class CartComponent implements OnInit {
     // Push the product for cart
     // this.productAddedTocart.push(tempProd);
 
-    this.pservice.removeAllProductFromCart();
-    this.pservice.addProductToCart(this.productAddedTocart);
-    this.calculteAllTotal(this.productAddedTocart);
-    this.calcAllTotPrice(this.productAddedTocart, product.Id);
-    this.deliveryForm.controls.Amount.setValue(this.allTotal);
+      this.pservice.removeAllProductFromCart();
+      this.pservice.addProductToCart(this.productAddedTocart);
+      this.calculteAllTotal(this.productAddedTocart);
+      this.calcAllTotPrice(this.productAddedTocart, product.Id);
+      this.deliveryForm.controls.Amount.setValue(this.allTotal);
 
-    const CartProductscheckId = JSON.parse(JSON.stringify(this.pservice.getProductFromCart()));
-    const mytempCheck = CartProductscheckId.find(p => p.Id === product.Id);
+      const CartProductscheckId = JSON.parse(JSON.stringify(this.pservice.getProductFromCart()));
+      const mytempCheck = CartProductscheckId.find(p => p.Id === product.Id);
 
-    let idFromCart = null;
-    CartProductscheckId.forEach((item, index) => {
+      let idFromCart = null;
+      CartProductscheckId.forEach((item, index) => {
       if (product.Id === item.Id) {
         idFromCart = item.Id;
       }
     });
-
+  }
+    if (Number(this.productAddedTocart.find(p => p.Id === product.Id).Quantity) === 1) {
+    this.productAddedTocart.find(p => p.Id === product.Id).Quantity = 1;
+    // this.isDisabled[Number(id)] = false;
+    this.productAddedTocart.find(p => p.Id === product.Id).isDisabled = false;
+  }
     // console.log('tempIdval: ' + idFromCart);
     // Get Product to add quantity
    /* if (idFromCart !== null) {
@@ -147,12 +153,19 @@ export class CartComponent implements OnInit {
 
   }
   onRemoveQuantity(product: Product) {
-    this.productAddedTocart = this.pservice.getProductFromCart();
-    this.productAddedTocart.find(p => p.Id === product.Id).Quantity = product.Quantity - 1;
-    this.pservice.removeAllProductFromCart();
-    this.pservice.addProductToCart(this.productAddedTocart);
-    this.calculteAllTotal(this.productAddedTocart);
-    this.deliveryForm.controls.Amount.setValue(this.allTotal);
+    if (Number(this.productAddedTocart.find(p => p.Id === product.Id).Quantity) >= 2) {
+      this.productAddedTocart.find(p => p.Id === product.Id).isDisabled = true;
+      this.productAddedTocart = this.pservice.getProductFromCart();
+      this.productAddedTocart.find(p => p.Id === product.Id).Quantity = product.Quantity - 1;
+      this.pservice.removeAllProductFromCart();
+      this.pservice.addProductToCart(this.productAddedTocart);
+      this.calculteAllTotal(this.productAddedTocart);
+      this.deliveryForm.controls.Amount.setValue(this.allTotal);
+    }
+    if (Number(this.productAddedTocart.find(p => p.Id === product.Id).Quantity) === 1) {
+      this.productAddedTocart.find(p => p.Id === product.Id).Quantity = 1;
+      this.productAddedTocart.find(p => p.Id === product.Id).isDisabled = false;
+    }
   }
   calculteAllTotal(allItems: Product[]) {
     let total = 0;
@@ -186,7 +199,7 @@ export class CartComponent implements OnInit {
     const val = product[key];
     // works
     idFromCart = val.Id;
-    console.log('IDs are: ' + idFromCart + ' ' + id);
+    console.log('IDs are: ' + idFromCart + ' ' + id + ' pid: ' + pid + ' val is: ');
     let ff = [];
      // console.log(key); //  'object keys'
     // console.log(val); //  'object values'
@@ -222,17 +235,23 @@ export class CartComponent implements OnInit {
     for (const i in product) {
       // total = total + (product[0].Quantity * product[0].UnitPrice);
     }
-    this.ltotal[pid - 1] = 0;
-    this.ltotal[pid - 1] = this.ltotal[pid - 1]
+    this.ltotal[idFromCart - 1] = 0;
+    this.ltotal[idFromCart - 1] = this.ltotal[idFromCart - 1]
     + (this.productAddedTocart.find(p => p.Id === pid).Quantity * this.productAddedTocart.find(p => p.Id === pid).UnitPrice);
+    this.ltotal.splice(idFromCart - 1, 1, this.ltotal[idFromCart - 1]);
+    console.log(this.ltotal);
+    // insert in specific index using slpice
+    // this.ltotal.splice(pid - 1, 1, (this.ltotal[pid - 1]
+    //   + (this.productAddedTocart.find(p => p.Id === pid).Quantity * this.productAddedTocart.find(p => p.Id === pid).UnitPrice)));
+    // console.log(this.ltotal);
     // console.log(this.ltotal[pid - 1]);
-    const res = (String(this.ltotal[pid - 1])).split('.');
+    const res = (String(this.ltotal[idFromCart - 1])).split('.');
     // If there is no decimal point or only one decimal place found.
     if (res.length === 1 || res[1].length < 3) {
     // Set the number to two decimal places
     // console.log(String(this.ltotal[pid - 1].toFixed(2)));
-    storeString = String(this.ltotal[pid - 1].toFixed(2));
-    this.ltotal[pid - 1] = parseFloat(storeString);
+    storeString = String(this.ltotal[idFromCart - 1].toFixed(2));
+    this.ltotal[idFromCart - 1] = parseFloat(storeString);
     // console.log(this.ltotal[pid - 1]);
     // this.DisplayPrice = this.ltotal[idFromCart].UnitPrice;
     // this.StoreDisplayPrice = this.ltotal[idFromCart].UnitPrice.toFixed(2);
@@ -310,6 +329,19 @@ export class CartComponent implements OnInit {
                );
 
   } */
+  onRemoveSelected(product: Product) {
+    if (this.productAddedTocart.find(p => p.Id === product.Id).Id) {
+      // const key = Object.keys(product)[product.Id - 1];
+      // const val = product[key];
+      // delete this.productAddedTocart;
+      // this.pservice.addProductToCart(this.productAddedTocart);
+      const key = Object.keys(this.productAddedTocart)[Number(product.Id)];
+      const val = product[key];
+      this.productAddedTocart.splice(Number(key), 1);
+      this.pservice.addProductToCart(this.productAddedTocart);
+    }
+  }
+
   // tslint:disable-next-line:align
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
