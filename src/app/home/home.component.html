@@ -1,6 +1,6 @@
 
 <app-nav-menu></app-nav-menu>
-<nav class="navbar navbar-dark bg-dark">
+<nav class="navbar navbar-dark bg-dark" *ngIf="(LoginStatus$ | async) as LoginStatus">
     <a class="navbar-brand text-white">JWT Auth System</a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">

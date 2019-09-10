@@ -28,13 +28,19 @@
             <a style="font-size: 12px; font-weight: 600;" routerLink="/user/registration" class="nav-item nav-link text-white" >SIGN UP </a>
         </div>
       </li>
+      <li class="nav-item">
+        <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]' (click)="LogOut()">LogOut</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" routerLink="/adminpanel">Admin Panel</a>
+      </li>  
   </ul>
   </div>
     </nav>
-    <div class="navbar navbar-expand-lg" style="background-color: white">
-  
-      <a class="navbar-brand" routerLink='/productdisplay'>
-      <img src="./assets/images/DeepCart.PNG"></a>
+    <nav *ngIf="!(LoginStatus$ | async) as LoginStatus" class="navbar navbar-expand-sm navbar-toggleable-sm" style=" padding: 2rem; background-color:white;
+    max-height: 35px !important;">
+    <a class="navbar-brand" routerLink='/productdisplay'>
+      <img src="../../assets/img/Logo/logo3.png"></a>
       <form class="form-inline my-2 my-lg-0">
             <div class="form-group has-search">
               <span class="fa fa-search form-control-feedback"></span>
@@ -44,47 +50,21 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-    
-      <div class="collapse navbar-collapse" style="padding-left: 150px;" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-    
-          <li class="nav-item active" *ngIf="!isLoggedIn">
-            <a class="nav-link navbar-text"  (click)="open(content)" href="#"><b>Login & Signup</b></a>
-          </li>
-          <div class="btn-group mr-3" *ngIf="(UserName$ | async) as UserName">
-            <button type="button" class="btn btn-primary"><b>User Details</b></button>
-            <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-              <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-              <div class="dropdown-menu" ngbDropdownMenu>
-                <button routerLink='/profile' class="dropdown-item">Profile</button>
-                <button  routerLink='/dashboard' class="dropdown-item">My Dashboard</button>
-                <button class="dropdown-item" (click)="LogOut()">LogOut</button>
-              </div>
-            </div>
-          </div>
-          <div class="btn-group mr-3">
-              <button type="button" class="btn btn-primary"><b>More</b></button>
-              <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
-                <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle></button>
-                <div class="dropdown-menu" ngbDropdownMenu>
-                  <button class="dropdown-item">One</button>
-                  <button class="dropdown-item">Two</button>
-                  <button class="dropdown-item">Four!</button>
-                </div>
-              </div>
-            </div>
-          <li class="nav-item active">
-              <!-- <a class="nav-link" href="#"><b>Cart</b></a> -->
-              <button type="button" routerLink='/mycart' class="btn btn-primary">
-                <b>Cart </b> <span class="badge badge-light">{{cartItemCount}}</span>
-                <span class="sr-only">unread messages</span>
-              </button>
-            </li>
-            <li class="nav-item active">
-              <a routerLink='/admin' class="nav-link" href="#"><b>Admin</b></a>
-            </li>
-        </ul>
-    
-      </div>
-    </div>    
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+      <ul class="navbar-nav flex-grow-2">
+        <li class="nav-item">
+        <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]'>Home</a>
+      </li>
+       
+      <li class="nav-item">
+        <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]' (click)="LogOut()">LogOut</a>
+      </li>
+  </ul>
+  </div>
+  <li class="navbar-nav navbar-right" id="cart">
+    <a class="nav-link text-white" [routerLink]='["/cart"]'>
+      <i style="color: #ab2247" class="fa fa-shopping-cart has-badge"></i> {{cartItemCount}} <span style="background-color: #ab2247;" class="badge badge-light text-white">3</span>
+    </a>
+  </li>
+    </nav>     
   </header>
