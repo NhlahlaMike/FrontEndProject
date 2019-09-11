@@ -18,16 +18,52 @@
     </ul>
     <button type="submit" class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
   </nav>
-  
-  <div class="card m-5" style="width:18rem" *ngIf="userDetails">
-    <ul class="list-group">
-      <li class="list-group-item"><strong>Username : </strong>{{userDetails.userName}}</li>
-      <li class="list-group-item"><strong>FullName : </strong>{{userDetails.fullName}}</li>
-      <li class="list-group-item"><strong>Email : </strong>{{userDetails.email}}</li>
-    </ul>
-  </div>
-  <br/>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm" style=" padding: 2rem; background-color:white;
+  max-height: 35px !important;">
+  <a class="navbar-brand" routerLink='/productdisplay'>
+    <img src="../../assets/img/Logo/logo3.png"></a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse navbar-right">
+    <ul class="navbar-nav flex-grow-2">
+    <li class="nav-item">
+      <form class="form-inline my-2 my-lg-0">
+        <div class="form-group has-search">
+          <span class="fa fa-search form-control-feedback"></span>
+          <input style="width: 300px" type="search" class="form-control mr-sm-2" placeholder="I'm looking for" aria-label="Search">
+        </div>          
+    </form>
+  </li>
+  <li class="nav-item">
+    <button class="btn btn-blue text-white" [routerLink]='["/"]'><i class="far fa-heart"></i> &nbsp; FAVOURATE</button>
+  </li> 
+  <li><span>&nbsp;&nbsp;</span></li>
+  <li class="nav-item">
+    <button class="btn btn-black text-white" [routerLink]='["/"]'><i class="fas fa-list"></i> &nbsp; SHOPPING LIST</button>
+  </li>  
+    <li class="nav-item" id="cart">
+      <a class="nav-link text-white" [routerLink]='["/cart"]'>
+        <i style="color: grey; font-size: 20px" class="fas fa-truck"></i> 
+      </a>
+    </li>       
+    <li class="nav-item" id="cart">
+      <a class="p1 fa-stack fa-2x has-badge nav-link text-white" [routerLink]='["/cart"]' [attr.data-count]="cartItemCount">
+        <i style="color: grey; font-size: 20px" class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0b"></i>
+      </a>
+    </li>              
+</ul>
+</div>
+  </nav>   
 <app-carousel></app-carousel>
 <app-toponlinedeals></app-toponlinedeals>
+<div class="card m-5" style="width:18rem" *ngIf="userDetails">
+  <ul class="list-group">
+    <li class="list-group-item"><strong>Username : </strong>{{userDetails.UserName}}</li>
+    <li class="list-group-item"><strong>FullName : </strong>{{userDetails.FullName}}</li>
+    <li class="list-group-item"><strong>Email : </strong>{{userDetails.Email}}</li>
+  </ul>
+</div>
 
 

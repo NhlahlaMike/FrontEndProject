@@ -11,6 +11,8 @@ import { OrderItem } from '../interfaces/order-item';
 import { UserService } from '../shared/user.service';
 import { Registration } from '../interfaces/registration';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { Observable, Subject, ReplaySubject} from 'rxjs';
+import { ResourceLoader } from '../../../node_modules/@angular/compiler';
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +33,7 @@ export class CartComponent implements OnInit {
   Phone: string;
   Email: string;
   ltotal: number[] = [];
-
+  cartItemCount: number;
   // @ViewChild('trollyTemplate', {static: true}) cartmodal: TemplateRef<any>;
   // Modal properties
   modalMessage: string;
@@ -339,6 +341,11 @@ export class CartComponent implements OnInit {
       const val = product[key];
       this.productAddedTocart.splice(Number(key), 1);
       this.pservice.addProductToCart(this.productAddedTocart);
+
+      this.sharedService.currentMessage.subscribe(msg => this.cartItemCount = msg);
+      setTimeout(() => {
+        // window.location.reload();
+    }, 100);
     }
   }
 

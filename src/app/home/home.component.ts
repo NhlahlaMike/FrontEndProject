@@ -5,7 +5,8 @@ import { Router } from '@angular/router';
 import { ProductService } from '../shared/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject, BehaviorSubject} from 'rxjs';
+import { SharedService } from '../shared/shared.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   myproducts;
   LoginStatus$: Observable<boolean>;
   UserName$: Observable<string>;
-
+  cartItemCount: number;
     // For the FormControl - Adding products
     insertForm: FormGroup;
 
@@ -39,10 +40,13 @@ export class HomeComponent implements OnInit {
     constructor(private fb: FormBuilder,
                 private toastr: ToastrService,
                 private router: Router,
+                private sharedservice: SharedService,
                 private pservice: ProductService,
                 private uservice: UserService) { }
 
   ngOnInit() {
+
+    this.sharedservice.currentMessage.subscribe(msg => this.cartItemCount = msg);
 // load user profile details
     this.uservice.getUserProfile().subscribe(
       res => {

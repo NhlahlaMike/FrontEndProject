@@ -1,5 +1,59 @@
+li.open > a > span{
+  border-top: 0px !important;
+  border-bottom: 4px dashed !important;
+}
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+.has-search .form-control-feedback {
+  position: absolute;
+  padding-left: 17.375rem;
+  z-index: 2;
+  width: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+
 html {
-    font-family: sans-serif;
-    -ms-text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
-  }
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+.navbar .navbar-brand { color: white; font-size: 12px; font-weight: 600;}
+
+.navbar .navbar-collapse .navbar-nav a{
+color: white; font-size: 12px; font-weight: 600;
+}
+.navbar .navbar-collapse .navbar-nav span{
+  color: white; font-size: 12px; font-weight: 600;
+}
+
+.navbar .navbar-brand:hover { color: white; font-size: 12px; font-weight: 600;}
+
+.navbar .navbar-collapse .navbar-nav a:hover{
+color: white; font-size: 12px; font-weight: 600; opacity: .5;
+}
+
+.nav-item:hover{
+background-color: transparent;
+}
+.btn-blue{
+  padding: 8px 50px;
+  font-size: 14px;
+  border-radius: 10px;
+  font-weight: 800; 
+  background-color:#2f6ac9b6; 
+  border-radius: 0px;
+}
+.btn-black{
+  padding: 8px 50px;
+  font-size: 14px;
+  border-radius: 10px;
+  font-weight: 800; 
+  background-color:black; 
+  border-radius: 0px;
+}

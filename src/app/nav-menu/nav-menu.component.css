@@ -41,6 +41,22 @@ color: white; font-size: 12px; font-weight: 600; opacity: .5;
 .nav-item:hover{
 background-color: transparent;
 }
+.btn-blue{
+    padding: 8px 50px;
+    font-size: 14px;
+    border-radius: 10px;
+    font-weight: 800; 
+    background-color:#2f6ac9b6; 
+    border-radius: 0px;
+}
+.btn-black{
+    padding: 8px 50px;
+    font-size: 14px;
+    border-radius: 10px;
+    font-weight: 800; 
+    background-color:black; 
+    border-radius: 0px;
+}
  /*
   .dropdown.open .caret {
     display: inline-block;

@@ -12,3 +12,19 @@
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   } 
+  #cart .p1[data-count]:after{
+  position:absolute;
+  right:-10%;
+  top:5%;
+  content: attr(data-count);
+  font-size:10px;
+  padding:0.5em;
+  padding-left: 0.5em;
+  border-radius:50%;
+  line-height:0.1em;
+  color: white;
+  background-color: #ab2247;
+  text-align:center;
+  min-width: 0.1rem;
+  font-weight:bold;
+}

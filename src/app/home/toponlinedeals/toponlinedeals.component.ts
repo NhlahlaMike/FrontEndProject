@@ -42,7 +42,9 @@ export class ToponlinedealsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.cartItemCount = 0;
+    if (this.cartItemCount < 1 ) {
+      this.cartItemCount = 0;
+    }
 
     // load all products from database
     this.products$ = this.pservice.getProducts();
