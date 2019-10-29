@@ -120,7 +120,7 @@ export class AdminPanelComponent implements OnInit {
     this.uservice.getUserProfile().subscribe(
       res => {
         this.userDetails = res;
-        console.log(res);
+        // console.log(res);
       },
       err => {
         console.log(err);

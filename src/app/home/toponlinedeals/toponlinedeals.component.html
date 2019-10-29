@@ -1,11 +1,14 @@
-<div class="row">
+<div class="row" id="resizeToDiv">
   <div *ngFor="let product of products" class="col-md-4">
     <div class="card">
       <div class="card-body">
              <div class="thumbnail">
                <!--it works-->
+               <!--<a [routerLink]="['/ProductView']" (click)="onSelect(product)"></a>-->
                 <!--  <img src="./../../../assets/img/{{product.ImageUrl}}" alt="">-->
-                <img [src]="'./../../../assets/img/' + product.ImageUrl" alt="">
+                <a [routerLink]="" (click)="onSelect(product)">
+                <img [src]="'./../../../assets/img/' + product.ImageUrl" alt="" >
+              </a>
                 <div class="caption">
                   <p>
                     This is the best product available in the market.
@@ -14,11 +17,11 @@
                   <ul class="list-group">
                     <li class="list-group-item"><strong>Email : </strong >{{product.Id}}</li>
                   </ul> <br>
-                    <strong>Price: </strong> 
+                    <strong>Price: </strong>
                     <ul class="list-group">
                       <li class="list-group-item"><strong>Email : </strong >{{product.Quantity}}</li>
                     </ul>
-                    <input type="number" [ngModel] ="product.Id"  (ngModelChange) ="product.Id=$event" value="product.Id">                  
+                    <input type="number" [ngModel] ="product.Id"  (ngModelChange) ="product.Id=$event" value="product.Id">
                   <div class="col-md-10">
                     <div class="row">
                         <button class="btn btn-primary custom-btn text-white" [disabled]="product.isDisabled===false" (click)="onMinusQuantity(product, product.Quantity)" role="button">
@@ -33,11 +36,11 @@
                     </div>
                   </div><br/>
                   <div class="col-md-8">
-                    <button  class="btn btn-primary custom-btn-red text-white" (click)="OnAddCart(product)" role="button"><b>Add to Trolly</b></button>      
+                    <button  class="btn btn-primary custom-btn-red text-white" (click)="OnAddCart(product)" role="button"><b>Add to Trolly</b></button>
                   </div>
                 </div>
-              </div>  
+              </div>
           </div>
   </div>
 </div>
-</div>  
+</div>

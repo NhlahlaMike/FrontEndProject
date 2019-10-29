@@ -24,7 +24,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CartComponent } from './cart/cart.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { CarouselComponent } from './home/carousel/carousel.component';
-// import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { AccordionPanelComponent } from 'ngx-bootstrap/accordion';
+import { ProductViewComponent } from './home/product-view/product-view.component';
 
 @NgModule({
   declarations: [
@@ -38,10 +40,12 @@ import { CarouselComponent } from './home/carousel/carousel.component';
     NavMenuComponent,
     ToponlinedealsComponent,
     CartComponent,
-    CarouselComponent
+    CarouselComponent,
+    ProductViewComponent
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     DataTablesModule,
     AppRoutingModule,
     ReactiveFormsModule,

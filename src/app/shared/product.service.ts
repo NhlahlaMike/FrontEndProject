@@ -24,8 +24,8 @@ export class ProductService {
     return this.product$;
   }
   // Get All Products
-  getProductsById(id: string): Observable<Product> {
-    return this.getProducts().pipe(flatMap(result => result), first(product => product.Barcode === id));
+  getProductsById(id: number): Observable<Product> {
+    return this.getProducts().pipe(flatMap(result => result), first(product => product.Id === id));
   }
   // Get All Products
   insertProduct(NewProduct: Product): Observable<Product> {
@@ -62,7 +62,10 @@ export class ProductService {
   getDisplayedProduct() {
     return JSON.parse(localStorage.getItem('ProductsOnView'));
   }
-
+  getUserFromLC() {
+    // return localStorage.getItem("product");
+    return JSON.parse(localStorage.getItem('userInfo'));
+  }
   roleMatch(allowedRoles): boolean {
     let isMatch = false;
     const payLoad = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));

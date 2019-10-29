@@ -8,6 +8,7 @@ import { RegistrationComponent } from './user/registration/registration.componen
 import { LoginComponent } from './user/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CartComponent } from './cart/cart.component';
+import { ProductViewComponent } from './home/product-view/product-view.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -18,7 +19,13 @@ const routes: Routes = [
       { path: 'login', component: LoginComponent }
     ]
   },
-  {path: 'home', component: HomeComponent},
+  {
+    path: 'home', component: HomeComponent,
+    children: [
+      { path: 'ProductDetails/:id', component: ProductViewComponent}
+    ]
+  },
+  {path: 'ProductView/:id', component: ProductViewComponent},
   {path: 'cart', component: CartComponent},
   {path: 'forbidden', component: ForbiddenComponent},
   {path: 'adminpanel', component: AdminPanelComponent, canActivate: [AuthGuard], data : {permittedRoles: ['Admin']}}

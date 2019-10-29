@@ -8,4 +8,10 @@
 .btn-primary.custom-btn-red {
 	background-color: #a6024b;
 	border-color: #a6024b;
-}   
+}
+#resizeToDiv div, .card, .card-body, .thumbnail, img {
+  max-width: 100%;
+  }
+#resizeToDiv div, .card{
+
+}

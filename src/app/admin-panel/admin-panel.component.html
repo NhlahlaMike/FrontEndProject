@@ -1,22 +1,5 @@
 
 <app-nav-menu></app-nav-menu>
-<nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand text-white">JWT Auth System</a>
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" routerLink="/adminpanel">Admin Panel</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" routerLink="/user/login">login</a>
-        </li>    
-        <li class="nav-item">
-            <a class="nav-link" routerLink="/user/registration">register</a>
-          </li>
-    </ul>
-    <button type="submit" class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
-  </nav>
-
-
   <div class="container-fluid">
     <button class="btn btn-warning mb-3 float-right text-uppercase" (click)="decodeToken()"><i class="fa fa-plus"></i> Decode Token</button>
     <button class="btn btn-info mb-3 float-right text-uppercase" (click)="onAddProduct()"><i class="fa fa-plus"></i> Add Product</button>

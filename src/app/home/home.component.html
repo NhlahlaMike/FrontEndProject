@@ -1,4 +1,3 @@
-
 <app-nav-menu></app-nav-menu>
 <nav class="navbar navbar-dark bg-dark" *ngIf="(LoginStatus$ | async) as LoginStatus">
     <a class="navbar-brand text-white">JWT Auth System</a>
@@ -8,13 +7,13 @@
       </li>
       <li class="nav-item">
           <a class="nav-link" routerLink="/user/login">login</a>
-        </li>    
+        </li>
         <li class="nav-item">
             <a class="nav-link" routerLink="/user/registration">register</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/cart">cart</a>
-          </li>          
+          </li>
     </ul>
     <button type="submit" class="btn btn-danger my-2 my-sm-0" (click)="onLogout()">Logout</button>
   </nav>
@@ -33,29 +32,29 @@
         <div class="form-group has-search">
           <span class="fa fa-search form-control-feedback"></span>
           <input style="width: 300px" type="search" class="form-control mr-sm-2" placeholder="I'm looking for" aria-label="Search">
-        </div>          
+        </div>
     </form>
   </li>
   <li class="nav-item">
     <button class="btn btn-blue text-white" [routerLink]='["/"]'><i class="far fa-heart"></i> &nbsp; FAVOURATE</button>
-  </li> 
+  </li>
   <li><span>&nbsp;&nbsp;</span></li>
   <li class="nav-item">
     <button class="btn btn-black text-white" [routerLink]='["/"]'><i class="fas fa-list"></i> &nbsp; SHOPPING LIST</button>
-  </li>  
+  </li>
     <li class="nav-item" id="cart">
       <a class="nav-link text-white" [routerLink]='["/cart"]'>
-        <i style="color: grey; font-size: 20px" class="fas fa-truck"></i> 
+        <i style="color: grey; font-size: 20px" class="fas fa-truck"></i>
       </a>
-    </li>       
+    </li>
     <li class="nav-item" id="cart">
       <a class="p1 fa-stack fa-2x has-badge nav-link text-white" [routerLink]='["/cart"]' [attr.data-count]="cartItemCount">
         <i style="color: grey; font-size: 20px" class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0b"></i>
       </a>
-    </li>              
+    </li>
 </ul>
 </div>
-  </nav>   
+  </nav>
 <app-carousel></app-carousel>
 <app-toponlinedeals></app-toponlinedeals>
 <div class="card m-5" style="width:18rem" *ngIf="userDetails">

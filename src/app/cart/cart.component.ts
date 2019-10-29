@@ -26,7 +26,8 @@ export class CartComponent implements OnInit {
   StringallTotal: string;
   DisplayPrice: number;
   StoreDisplayPrice: string;
-  currentUser: Registration[];
+  currentUser$: Observable<Registration[]>;
+  currentUser: Registration[] = [];
   orderDetail: OrderDetail;
   orderItem: OrderItem[];
   UserName: string;
@@ -34,6 +35,8 @@ export class CartComponent implements OnInit {
   Email: string;
   ltotal: number[] = [];
   cartItemCount: number;
+  userData: string[] = [];
+  userDetails: any;
   // @ViewChild('trollyTemplate', {static: true}) cartmodal: TemplateRef<any>;
   // Modal properties
   modalMessage: string;
@@ -41,6 +44,7 @@ export class CartComponent implements OnInit {
 
   public globalResponse: any;
   public alerts: Array<IAlert> = [];
+
 
   deliveryForm: FormGroup;
 
@@ -68,6 +72,38 @@ export class CartComponent implements OnInit {
       // this.modalRef.setClass('fullscreen');
       // this.modalService.open(this.cartmodal, { windowClass: 'fullscreen' }); // old
     // }
+    // load user profile details
+    this.currentUser$ = this.uservice.getUsers();
+    this.currentUser$.subscribe(
+      res => {
+        this.currentUser = res;
+        this.globalResponse = res;
+        this.userDetails = res;
+        localStorage.setItem('userInfo', JSON.stringify(this.globalResponse));
+        console.log(this.currentUser);
+        res.map(item => {
+          console.log(item);
+        });
+
+        JSON.parse(JSON.stringify(this.currentUser)).forEach((item, index) => {
+          console.log(item.FullName);
+          console.log(item);
+       });
+      },
+      err => {
+        console.log(err);
+      },
+      () => {
+        this.currentUser = JSON.parse(JSON.stringify(this.globalResponse));
+        console.log(this.globalResponse);
+      }
+    );
+
+
+    this.currentUser.forEach((item, index) => {
+      this.currentUser[index].FullName = item.FullName;
+      console.log(item);
+   });
 
     this.pservice.removeAllProductFromCart();
     this.pservice.addProductToCart(this.productAddedTocart);
@@ -84,14 +120,21 @@ export class CartComponent implements OnInit {
       Amount: ['', [Validators.required]],
 
     });
-
-    /*
-       this.currentUser.forEach((item, index) => {
+    console.log(this.currentUser);
+    this.currentUser.forEach((item, index) => {
        this.UserName = item.UserName;
-       this.Phone = item.Email;
+       this.Phone = item.Phone;
        this.Email = item.Email;
+       alert(item.UserName);
        });
-   */
+
+    console.log(this.userDetails);
+    this.userDetails.forEach((item, index) => {
+        this.UserName = item.UserName;
+        this.Phone = item.Email;
+        this.Email = item.Email;
+        });
+
     this.deliveryForm.controls.UserName.setValue(this.UserName);
     this.deliveryForm.controls.Phone.setValue(this.Phone);
     this.deliveryForm.controls.Email.setValue(this.Email);
@@ -335,8 +378,43 @@ export class CartComponent implements OnInit {
     if (this.productAddedTocart.find(p => p.Id === product.Id).Id) {
       // const key = Object.keys(product)[product.Id - 1];
       // const val = product[key];
+      // delete all:
       // delete this.productAddedTocart;
+      // delete myArray[key];  -- leaves undefined space
       // this.pservice.addProductToCart(this.productAddedTocart);
+
+      /*
+      onDelete(id: number) {
+    this.service.delete(id).then(() => {
+        let index = this.documents.findIndex(d => d.id === id); //find index in your array
+        this.documents.splice(index, 1);//remove element from array
+    });
+
+    event.stopPropagation();
+}
+      */
+      /*
+      syntax:
+      0 -- doesn't replace
+      1... -- replace how many from start
+      elements --- add text e.g "text"
+      array.splice(start,number,elements_list)
+
+      var fstarry = ['C', 'Sharp', 'Corner', 'Dot', 'Net', 'Heaven', 'Modeling', 'Corner'];
+      var removeelemet = fstarry.splice(2, 1, 'Nitin').toString();
+      After add element, Array is -> C,Sharp,Nitin,Dot,Net,Heaven,Modeling,Corner
+
+      var fruits = ["Banana", "Orange", "Apple", "Mango", "Mike"];
+      fruits.splice(2, 3, "Lemon", "Kiwi");
+
+      Results: Banana,Orange,Lemon,Kiwi
+
+      const index = myArray.indexOf(key, 0);
+      if (index > -1) {
+        myArray.splice(index, 1);
+      }
+      */
+     // deleting an array of an object
       const key = Object.keys(this.productAddedTocart)[Number(product.Id)];
       const val = product[key];
       this.productAddedTocart.splice(Number(key), 1);

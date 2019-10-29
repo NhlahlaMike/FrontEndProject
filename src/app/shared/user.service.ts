@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import * as jwt_decode from 'jwt-decode';
 import { Registration } from '../interfaces/registration';
+import { flatMap, first, shareReplay, map } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class UserService {
 
   constructor(private router: Router, private fb: FormBuilder, private http: HttpClient) { }
   readonly BaseURI = 'http://localhost:54277/api';
-
+  private	user$: Observable<Registration[]>;
   // subject type multicast the value among components
     // User related properties
     private loginStatus = new BehaviorSubject<boolean>(this.checkLoginStatus());
@@ -75,7 +76,7 @@ export class UserService {
           }
 
           return result;
-          console.log('my result' + result);
+          // console.log('my result' + result);
           })
 
       );
@@ -83,6 +84,12 @@ export class UserService {
 
   getUserProfile() {
     return this.http.get(this.BaseURI + '/UserProfile');
+  }
+    getUsers(): Observable<Registration[]> {
+    if (!this.user$) {
+      this.user$ = this.http.get < Registration[] > (this.BaseURI + '/UserProfile').pipe(shareReplay());
+    }
+    return this.user$;
   }
 
   roleMatch(allowedRoles): boolean {

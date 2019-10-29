@@ -24,6 +24,7 @@ export class ToponlinedealsComponent implements OnInit {
   insertQuantity: FormControl;
   displayProduct: Product[];
   dafualtQuantity: number;
+  selectedProduct: Product;
 
   // cart declarations
   public alerts: Array<IAlert> = [];
@@ -32,6 +33,7 @@ export class ToponlinedealsComponent implements OnInit {
   public globalResponse: any;
   yourByteArray: any;
   productAddedTocart: Product[];
+  productViedFromCart: Product[]; // not used
   // isDisabled: boolean[] = [];
 
   constructor(private fb: FormBuilder,
@@ -196,6 +198,16 @@ onMinusQuantity(product: Product) {
     this.products.find(p => p.Id === product.Id).Quantity = product.Quantity - 1;
     this.products.find(p => p.Id === product.Id).isDisabled = false;
   }
+}
+
+selectedPic(product: Product) {
+  this.pservice.getProductsById(product.Id);
+}
+
+onSelect(product: Product): void {
+    this.selectedProduct = product;
+
+    this.router.navigateByUrl('/ProductView/' + product.Id);
 }
 
 }

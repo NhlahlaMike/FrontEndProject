@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     this.uservice.getUserProfile().subscribe(
       res => {
         this.userDetails = res;
-        console.log(res);
+        // console.log(res);
       },
       err => {
         console.log(err);
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     this.pservice.getProducts().subscribe(
       res => {
         this.products = res;
-        console.log(res);
+        // console.log(res);
       },
       err => {
         console.log(err);
