@@ -41,6 +41,7 @@ export class CartComponent implements OnInit {
   // Modal properties
   modalMessage: string;
   modalRef: BsModalRef;
+  selected: boolean[] = [];
 
   public globalResponse: any;
   public alerts: Array<IAlert> = [];
@@ -60,6 +61,10 @@ export class CartComponent implements OnInit {
     this.productAddedTocart = this.pservice.getProductFromCart();
     this.productAddedTocart.forEach((item, index) => {
     this.ltotal[index] = item.UnitPrice * this.productAddedTocart.find(p => p.Id === item.Id).Quantity;
+    });
+
+    this.productAddedTocart.forEach((item, index) => {
+      this.selected[index] = false;
     });
     // tslint:disable-next-line:forin
     // for (const i in this.productAddedTocart) {
@@ -431,5 +436,45 @@ export class CartComponent implements OnInit {
   public closeAlert(alert: IAlert) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
+  }
+
+  onChange(product: Product, isChecked: boolean) {
+    /*if (isChecked === true) {
+      this.selected[product.Id] = true;
+    } else {
+      this.selected[product.Id] = false;
+    }*/
+  }
+
+  RemoveAllSelected() {
+
+    const numOfKeys = Object.keys(this.productAddedTocart).length;
+    // this.productAddedTocart = [];
+    // this.pservice.addProductToCart(this.productAddedTocart);
+
+    this.selected.forEach((v, i, a) => {
+
+      if (a[i] === true) {
+      // a[i] = !v
+      this.productAddedTocart.splice(Number(i), 1);
+      }
+    });
+
+    this.pservice.addProductToCart(this.productAddedTocart);
+
+    /*this.productAddedTocart.forEach((item, index) => {
+      this.productAddedTocart.splice(Number(index), 1);
+      this.pservice.addProductToCart(this.productAddedTocart);
+     });
+*/
+
+   /* for (let i = 0; i < numOfKeys; i++) {
+      this.productAddedTocart.splice(Number(i), 1);
+      this.pservice.addProductToCart(this.productAddedTocart);
+    }*/
+
+    this.sharedService.currentMessage.subscribe(msg => this.cartItemCount = msg);
+  // delete this.productAddedTocart;
+  // this.pservice.addProductToCart(this.productAddedTocart);
   }
 }

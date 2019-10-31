@@ -8,7 +8,10 @@
               <span style="margin-left: 2%;margin-right: 80%;color: black">
                 Total value is: {{allTotal | number:'1.2-5'}}</span>
               <button class="btn btn-success" (click)="acc.toggle('static-2')">CheckOut</button>
-            </h1>
+            </h1><br/>
+
+            <button  class="btn btn-lg btn-outline-danger selectcustom-btn-red" (click)="RemoveAllSelected()" role="button"><i class="fas fa-shopping-cart"></i><b>  Remove All</b></button>
+
             <table class="table table-bordered table-responsive table-hover">
               <thead class="thead-light">
                 <tr>
@@ -21,12 +24,12 @@
                   <th>Delete</th>
                 </tr>
               </thead>
-              <tr *ngFor="let prod of productAddedTocart;let q = index">
+              <tr *ngFor="let prod of productAddedTocart;let i = index">
                 <!-- <td>{{prod.UnitPrice}}</td>-->
                 <!--<input [ngModel] ="prod.Id" type="hidden" class="form-control" value="prod.Id">-->
                 <td>
-                  <div>
-                    <input type="checkbox"/>
+                  <div> {{selected[i]}}
+                    <input type="checkbox" id="{{i}}" value="prod.Id" (change)="onChange(prod, $event.target.checked)" [ngModel]="selected[i]" (ngModelChange)="selected[i]=$event" [checked]="selected[i]"/>
                   </div>
                   <div>
                     <img src="./../../../assets/img/{{prod.ImageUrl}}" width="250px;" height="270px;" />
@@ -35,7 +38,7 @@
                 <td class="text-center">{{prod.ProductName}} - {{prod.Description}}</td>
                 <!-- <td *ngIf="ltotal.length === 0">{{prod.UnitPrice}}</td> -->
                 <!-- Display array values with decimal numbers -->
-                <!--<td>{{ltotal[q] | number:'1.2-5'}}</td>-->
+                <!--<td>{{ltotal[i] | number:'1.2-5'}}</td>-->
                 <td>R{{(prod.UnitPrice * prod.Quantity) | number:'1.2-5'}}</td>
                 <td>{{prod.Quantity}}</td>
                 <td>

@@ -1,7 +1,7 @@
 /*.modal-open .fullscreen .modal-dialog {
     max-width: 100%;
   }
-  
+
 .modal-sm {
     max-width: 100% !important;
     width: 100% !important;
@@ -27,5 +27,21 @@
     border-radius: 0px;
 
 }
+
 td{ height: 10px; }
 tr{ line-height: 10px; }
+
+.btn-outline-danger {
+  color: #a6024b;
+  width: 43%;
+  background-color: #ffffff;
+  border-color: #a6024b;
+  border: 2px Solid;
+}
+.btn-outline-danger:hover, .selectcustom-btn-red:hover {
+	background-color: #a6024b;
+  border-color: #a6024b;
+  color: #ffffff;
+  width: 43%;
+  display:block;
+}
