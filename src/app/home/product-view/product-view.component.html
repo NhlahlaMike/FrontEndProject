@@ -1,0 +1,73 @@
+<ng-template #noproduct>
+  <h2>No Product to Display</h2>
+</ng-template>
+
+<div class="container" *ngIf="product;else noproduct">
+  <div class="card">
+    <div class="row">
+      <aside class="col-sm-5 border-right">
+        <article class="gallery-wrap">
+          <div class="img-big-wrap">
+            <div> <a href="#"><img [src]="'./../../../assets/img/' + product.ImageUrl" alt="" ></a></div>
+          </div>
+          <div class="img-small-wrap">
+            <div class="item-gallery"> <img [src]="'./../../../assets/img/' + product.ImageUrl" alt="" > </div>
+          </div>
+        </article> <!-- gallery-wrap .end// -->
+      </aside>
+      <aside class="col-sm-7">
+        <article class="card-body p-5">
+          <h3 class="title mb-3">{{product.ProductName | uppercase}}</h3>
+          <br><br>
+          <p class="price-detail-wrap">
+            <span class="price h3" style="color: #a6024b;">
+              <span class="currency">Price: </span><span class="num">{{product.UnitPrice | currency:'ZAR':'symbol-narrow':'.2'}}</span>
+            </span>
+          </p> <!-- price-detail-wrap .end// -->
+          <div class="col-md-10">
+            <div class="row">
+                <button class="btn btn-primary custom-btn text-white" [disabled]="product.isDisabled===false" (click)="onMinusQuantity(product, product.Quantity)" role="button">
+                    <i class="fa fa-minus" style="font-size:15px"></i>
+                </button>
+                <div class="col-md-4">
+                  <input type="number"  [ngModel] ="product.Quantity" (ngModelChange) ="product.Quantity=$event" class="form-control form-inline text-center bg-white font-weight-bold " size="1" data-max="999" data-min="1" id="counterval">
+              </div>
+                <button class="btn btn-primary custom-btn text-white" (click)="onAddQuantity(product)" role="button">
+                    <i class="fa fa-plus" style="font-size:15px"></i>
+                </button>
+            </div>
+          </div><br/>
+          <div class="col-lg-16">
+            <button  class="btn btn-lg btn-primary custom-btn-red text-white" (click)="OnAddCart(product)" role="button"><i class="fas fa-shopping-cart"></i><b>  Add to Trolly</b></button>
+          </div>
+          <hr>
+          <button href="#" class="btn btn-lg btn-outline-primary text-uppercase"> <i class="fas fa-list"></i> Add to List </button>
+        </article> <!-- card-body.// -->
+      </aside> <!-- col.// -->
+
+    </div> <!-- row.// -->
+  </div> <!-- card.// -->
+  <div class="card">
+    <div class="row">
+  <div style="padding: 10px">
+    <ngb-tabset >
+      <ngb-tab >
+        <ng-template ngbTabTitle><span><b>{{'Product Information' | uppercase}}</b></span></ng-template>
+        <ng-template ngbTabContent>
+          <label><span><b>Description: </b></span>{{product.Description}}</label><br/>
+          <label><span><b>Barcode: </b></span>{{product.Barcode}}</label><br/>
+          <label><span><b>Usage: </b></span>{{product.Usage}}</label><br/>
+          <p class="contentBColor">{{product.Features}}</p>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+          <ng-template ngbTabTitle [ngClass]="['text-uppercase']"><b>{{'Reviews' | uppercase}}</b></ng-template>
+          <ng-template ngbTabContent class="text-justify text-right">
+            <p class="contentBColor">No review yet</p>
+          </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>
+    </div>
+  </div>
+</div>

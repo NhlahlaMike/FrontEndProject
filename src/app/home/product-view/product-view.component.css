@@ -1,0 +1,90 @@
+.gallery-wrap .img-big-wrap img {
+  height: 450px;
+  width: 100%;
+  display: inline-block;
+}
+
+
+.gallery-wrap .img-small-wrap .item-gallery {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ddd;
+  margin: 7px 2px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.gallery-wrap .img-small-wrap {
+  text-align: center;
+}
+
+  .gallery-wrap .img-small-wrap img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+.color-select {
+  display: table;
+  margin-left: -10px
+}
+
+  .color-select input[type="radio"] {
+    visibility: hidden;
+  }
+
+
+
+  .color-select label {
+    cursor: pointer;
+    border-radius: 40px;
+    transition: all .3s ease-out;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .color-select .grey {
+    background-image: linear-gradient(#bdc3c7, #2c3e50)
+  }
+
+  .color-select .silver {
+    background-image: linear-gradient(#F6F2F2, #D9D9D9)
+  }
+
+  .color-select .gold {
+    background-image: linear-gradient(#F8DBA4, #E09082)
+  }
+
+  .color-select input[type="radio"]:checked + label {
+    border: 2px solid #f7797d;
+  }
+  .btn, .thumbnail, .form-control {
+    border-radius: 0;
+   }
+   .btn-primary.custom-btn {
+	background-color: #c3bebe;
+	border-color: #c9c5c5;
+}
+.btn-primary.custom-btn-red {
+	background-color: #a6024b;
+  border-color: #a6024b;
+  width: 43%;
+  display:block;
+}
+#resizeToDiv div, .card, .card-body, .thumbnail, img {
+  max-width: 100%;
+}
+#resizeToDiv div, .card {
+
+}
+.contentBColor {
+  background-color: lightgray !important;
+}
+  .tabcolor {
+  background-color: red !important;
+} .tabsetcolor {
+  background-color: blue !important;
+}
+
