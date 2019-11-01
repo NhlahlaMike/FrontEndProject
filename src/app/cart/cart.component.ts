@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef, ChangeDetectorRef, Output, V
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { IAlert } from './../interfaces/ialert';
 import { ProductService } from './../shared/product.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart, Event as NavigationEvent } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { SharedService } from '../shared/shared.service';
 import { Product } from '../interfaces/product';
@@ -12,6 +12,7 @@ import { UserService } from '../shared/user.service';
 import { Registration } from '../interfaces/registration';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, Subject, ReplaySubject} from 'rxjs';
+import { filter } from 'rxjs/operators';
 import { ResourceLoader } from '../../../node_modules/@angular/compiler';
 
 @Component({
@@ -55,7 +56,78 @@ export class CartComponent implements OnInit {
               private modalService: BsModalService,
               private pservice: ProductService,
               private uservice: UserService,
-              private sharedService: SharedService) { }
+              private sharedService: SharedService) {
+
+                router.events
+                .subscribe((event: NavigationStart) => {
+                  if (event.navigationTrigger === 'popstate') {
+                    // Perform actions
+                    // works
+                    // alert(this.cartItemCount);
+                    this.selected = [];
+                    this.sharedService.currentMessage.subscribe(msg => this.cartItemCount = msg);
+                  }
+                });
+
+                router.events
+                .pipe(
+                    // The "events" stream contains all the navigation events. For this demo,
+                    // though, we only care about the NavigationStart event as it contains
+                    // information about what initiated the navigation sequence.
+                    filter(
+                        ( event: NavigationEvent ) => {
+
+                            return( event instanceof NavigationStart );
+
+                        }
+                    )
+                )
+                .subscribe(
+                    ( event: NavigationStart ) => {
+
+                        console.group( 'NavigationStart Event' );
+                        // Every navigation sequence is given a unique ID. Even "popstate"
+                        // navigations are really just "roll forward" navigations that get
+                        // a new, unique ID.
+                        console.log( 'navigation id:', event.id );
+                        console.log( 'route:', event.url );
+                        // The "navigationTrigger" will be one of:
+                        // --
+                        // - imperative (ie, user clicked a link).
+                        // - popstate (ie, browser controlled change such as Back button).
+                        // - hashchange
+                        // --
+                        // NOTE: I am not sure what triggers the "hashchange" type.
+                        console.log( 'trigger:', event.navigationTrigger );
+
+                        if (event.navigationTrigger === 'popstate') {
+                          // Perform actions
+                          this.selected = [];
+                          this.sharedService.currentMessage.subscribe(msg => this.cartItemCount = msg);
+                          // alert(this.cartItemCount);
+                        }
+
+                        // This "restoredState" property is defined when the navigation
+                        // event is triggered by a "popstate" event (ex, back / forward
+                        // buttons). It will contain the ID of the earlier navigation event
+                        // to which the browser is returning.
+                        // --
+                        // CAUTION: This ID may not be part of the current page rendering.
+                        // This value is pulled out of the browser; and, may exist across
+                        // page refreshes.
+                        if ( event.restoredState ) {
+
+                            console.warn(
+                                'restoring navigation id:',
+                                event.restoredState.navigationId
+                            );
+
+                        }
+
+                        console.groupEnd();
+
+                    });
+               }
 
   ngOnInit() {
     this.productAddedTocart = this.pservice.getProductFromCart();
@@ -439,11 +511,32 @@ export class CartComponent implements OnInit {
   }
 
   onChange(product: Product, isChecked: boolean) {
-    /*if (isChecked === true) {
+    if (isChecked === true) {
       this.selected[product.Id] = true;
     } else {
       this.selected[product.Id] = false;
-    }*/
+    }     
+  }
+
+  SelectAll() {
+    const numOfKeys = Object.keys(this.productAddedTocart).length;
+
+    if (numOfKeys > -1 ) {
+      const x = document.getElementById('SelectorDeselect').innerText;
+      if (x === 'Select All Items') {
+          document.getElementById('SelectorDeselect').innerText  = 'Remove All Selected Items';
+
+          this.selected.forEach((v, i, a) => {
+            a[i] = true;
+            });
+      } else {
+          document.getElementById('SelectorDeselect').innerText  = 'Select All Items';
+
+          this.selected.forEach((v, i, a) => {
+            a[i] = false;
+            });
+      }
+    }
   }
 
   RemoveAllSelected() {
@@ -452,13 +545,25 @@ export class CartComponent implements OnInit {
     // this.productAddedTocart = [];
     // this.pservice.addProductToCart(this.productAddedTocart);
 
-    this.selected.forEach((v, i, a) => {
-
+    /*this.selected.forEach((v, i, a) => {
+      
       if (a[i] === true) {
       // a[i] = !v
-      this.productAddedTocart.splice(Number(i), 1);
+      //this.productAddedTocart.splice(i);
+      this.productAddedTocart.splice(i, 1);
+      //var key = Object.keys(this.productAddedTocart)[i];
+      //delete this.productAddedTocart[key];
       }
-    });
+    });*/
+
+    for(let i = 0; i <=numOfKeys; i++) {     
+        if (this.selected[i] === true) {
+        const key = Object.keys(this.productAddedTocart)[Number(i)];
+        this.productAddedTocart.splice(Number(key), 1);
+        this.pservice.addProductToCart(this.productAddedTocart);
+        }
+    }
+
 
     this.pservice.addProductToCart(this.productAddedTocart);
 
@@ -476,5 +581,12 @@ export class CartComponent implements OnInit {
     this.sharedService.currentMessage.subscribe(msg => this.cartItemCount = msg);
   // delete this.productAddedTocart;
   // this.pservice.addProductToCart(this.productAddedTocart);
+
+    this.selected.forEach((v, i, a) => {
+    a[i] = false;
+    });
+
+    this.calculteAllTotal(this.productAddedTocart);
+
   }
 }

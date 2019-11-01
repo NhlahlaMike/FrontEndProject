@@ -10,8 +10,8 @@
               <button class="btn btn-success" (click)="acc.toggle('static-2')">CheckOut</button>
             </h1><br/>
 
-            <button  class="btn btn-lg btn-outline-danger selectcustom-btn-red" (click)="RemoveAllSelected()" role="button"><i class="fas fa-shopping-cart"></i><b>  Remove All</b></button>
-
+            <button  class="btn btn-lg btn-outline-danger selectcustom-btn-red mx-2" (click)="SelectAll()" role="button" id="SelectorDeselect"><i class="fas fa-plus-square mx-2"></i><b>Select All Items</b></button>
+            <button  class="btn btn-lg btn-outline-danger selectcustom-btn-red mx-2" (click)="RemoveAllSelected()" role="button"><i class="fas fa-trash-alt mx-2"></i><b>Remove All Selected Items</b></button>
             <table class="table table-bordered table-responsive table-hover">
               <thead class="thead-light">
                 <tr>
@@ -28,8 +28,8 @@
                 <!-- <td>{{prod.UnitPrice}}</td>-->
                 <!--<input [ngModel] ="prod.Id" type="hidden" class="form-control" value="prod.Id">-->
                 <td>
-                  <div> {{selected[i]}}
-                    <input type="checkbox" id="{{i}}" value="prod.Id" (change)="onChange(prod, $event.target.checked)" [ngModel]="selected[i]" (ngModelChange)="selected[i]=$event" [checked]="selected[i]"/>
+                  <div> {{selected[i]}} <!--Binded Property-->
+                    <input type="checkbox" id="{{i}}" value="prod.Id" (change)="isChecked[i] = $event.target.checked" [ngModel]="selected[i]" (ngModelChange)="selected[i]=$event" [checked]="selected[i]"/>
                   </div>
                   <div>
                     <img src="./../../../assets/img/{{prod.ImageUrl}}" width="250px;" height="270px;" />
