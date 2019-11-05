@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
      <div class="col-sm-12 offset-sm-0 text-center" align="center">
-   
+
        <h1 class="headerWelcome">
          Register for Pick n Pay Online
        </h1>
@@ -24,12 +24,12 @@
             </td>
             <td>
                 <div class="col-lg-16">
-                    <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                    <input class="form-control" #UserName="ngModel" name="UserName" [(ngModel)]="formModel.UserName" required aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
             </td>
-            </div>                   
+            </div>
         </tr>
- 
+
         <tr>
             <div class="form-group required">
             <td>
@@ -39,18 +39,19 @@
             </td>
             <td>
                 <div class="col-md-16">
-                    <input  type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                    <input  type="password" class="form-control" #Password="ngModel" name="Password" [(ngModel)]="formModel.Password" required aria-label="Default" aria-describedby="inputGroup-sizing-default">
                 </div>
-            </td>  
-            </div>                 
+            </td>
+            </div>
         </tr>
     </table>
+    <br />
     <div class="form-row justify-content-center" style="margin-right: 30%;">
-        <div class="form-group col-sm-4">
-            <button type="submit"  class="btn btn-outline-success" routerLink='/user/registration'><b>SIGN UP</b></button>  
-            
-            <button type="submit"  class="btn btn-outline-success" [disabled]="form.invalid"><b>LOG IN</b></button>  
-        </div>        
+        <div class="form-group col-md-4">
+            <button type="button"  class="btn btn-outline-success mx-2" routerLink='/user/registration'><b>SIGN UP</b></button>
+
+            <button type="submit"  class="btn btn-outline-success" [disabled]="form.invalid"><b>LOG IN</b></button>
+        </div>
       </div>
     </form>
         </div>

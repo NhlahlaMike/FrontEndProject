@@ -515,7 +515,7 @@ export class CartComponent implements OnInit {
       this.selected[product.Id] = true;
     } else {
       this.selected[product.Id] = false;
-    }     
+    }
   }
 
   SelectAll() {
@@ -546,7 +546,7 @@ export class CartComponent implements OnInit {
     // this.pservice.addProductToCart(this.productAddedTocart);
 
     /*this.selected.forEach((v, i, a) => {
-      
+
       if (a[i] === true) {
       // a[i] = !v
       //this.productAddedTocart.splice(i);
@@ -556,14 +556,13 @@ export class CartComponent implements OnInit {
       }
     });*/
 
-    for(let i = 0; i <=numOfKeys; i++) {     
+    for (let i = 0; i <= numOfKeys; i++) {
         if (this.selected[i] === true) {
         const key = Object.keys(this.productAddedTocart)[Number(i)];
         this.productAddedTocart.splice(Number(key), 1);
         this.pservice.addProductToCart(this.productAddedTocart);
         }
     }
-
 
     this.pservice.addProductToCart(this.productAddedTocart);
 

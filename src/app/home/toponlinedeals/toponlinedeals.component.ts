@@ -28,7 +28,7 @@ export class ToponlinedealsComponent implements OnInit {
 
   // cart declarations
   public alerts: Array<IAlert> = [];
-  cartItemCount: number;
+  cartItemCount: number = 0;
   @Output() cartEvent = new EventEmitter<number>();
   public globalResponse: any;
   yourByteArray: any;

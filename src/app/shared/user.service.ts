@@ -7,7 +7,6 @@ import * as jwt_decode from 'jwt-decode';
 import { Registration } from '../interfaces/registration';
 import { flatMap, first, shareReplay, map } from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
