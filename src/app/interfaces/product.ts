@@ -14,4 +14,5 @@ export interface Product {
     Category: string;
     ProductSubCategoryID: string;
     isDisabled: boolean;
+    // ProductSubCategory: ProductSubCategory;
 }

@@ -29,6 +29,7 @@ export class CartComponent implements OnInit {
   StoreDisplayPrice: string;
   currentUser$: Observable<Registration[]>;
   currentUser: Registration[] = [];
+  mycurrentUser: Registration[];
   orderDetail: OrderDetail;
   orderItem: OrderItem[];
   UserName: string;
@@ -43,6 +44,7 @@ export class CartComponent implements OnInit {
   modalMessage: string;
   modalRef: BsModalRef;
   selected: boolean[] = [];
+  myuser: any;
 
   public globalResponse: any;
   public alerts: Array<IAlert> = [];
@@ -130,7 +132,9 @@ export class CartComponent implements OnInit {
                }
 
   ngOnInit() {
+
     this.productAddedTocart = this.pservice.getProductFromCart();
+
     this.productAddedTocart.forEach((item, index) => {
     this.ltotal[index] = item.UnitPrice * this.productAddedTocart.find(p => p.Id === item.Id).Quantity;
     });
@@ -158,14 +162,6 @@ export class CartComponent implements OnInit {
         this.userDetails = res;
         localStorage.setItem('userInfo', JSON.stringify(this.globalResponse));
         console.log(this.currentUser);
-        res.map(item => {
-          console.log(item);
-        });
-
-        JSON.parse(JSON.stringify(this.currentUser)).forEach((item, index) => {
-          console.log(item.FullName);
-          console.log(item);
-       });
       },
       err => {
         console.log(err);
@@ -176,11 +172,21 @@ export class CartComponent implements OnInit {
       }
     );
 
+    this.mycurrentUser = JSON.parse(JSON.stringify(this.pservice.getUserFromLC()));
+    // this.myuser = JSON.parse(JSON.stringify(this.pservice.getUserFromLC()));
+    // this.currentUser = this.mycurrentUser;
+    this.myuser = Object.assign({}, this.mycurrentUser);
+    console.log(this.myuser.FullName);
 
-    this.currentUser.forEach((item, index) => {
-      this.currentUser[index].FullName = item.FullName;
-      console.log(item);
-   });
+    this.UserName = this.myuser.FullName;
+    this.Phone = this.myuser.Phone;
+    this.Email = this.myuser.Email;
+    // alert(this.myuser.FullName);
+    /*this.mycurrentUser.forEach((item, index) => {
+      this.UserName = item.UserName;
+      this.Phone = item.Phone;
+      this.Email = item.Email;
+   });*/
 
     this.pservice.removeAllProductFromCart();
     this.pservice.addProductToCart(this.productAddedTocart);
@@ -197,20 +203,6 @@ export class CartComponent implements OnInit {
       Amount: ['', [Validators.required]],
 
     });
-    console.log(this.currentUser);
-    this.currentUser.forEach((item, index) => {
-       this.UserName = item.UserName;
-       this.Phone = item.Phone;
-       this.Email = item.Email;
-       alert(item.UserName);
-       });
-
-    console.log(this.userDetails);
-    this.userDetails.forEach((item, index) => {
-        this.UserName = item.UserName;
-        this.Phone = item.Email;
-        this.Email = item.Email;
-        });
 
     this.deliveryForm.controls.UserName.setValue(this.UserName);
     this.deliveryForm.controls.Phone.setValue(this.Phone);
@@ -383,11 +375,11 @@ export class CartComponent implements OnInit {
   GetLoggedinUserDetails() {
     // this.currentUser = this.authService.getRole();
   }
-  /*
+
   ConfirmOrder() {
      const date: Date = new Date();
-     const id = this.currentUser.Id;
-     const name = this.currentUser.UserName;
+     const id = this.myuser.Id;
+     const name = this.myuser.FullName;
      const day = date.getDate();
      const monthIndex = date.getMonth();
      const year = date.getFullYear();
@@ -397,11 +389,11 @@ export class CartComponent implements OnInit {
      const dateTimeStamp = day.toString() + monthIndex.toString()
                           + year.toString() + minutes.toString()
                           + hours.toString() + seconds.toString();
-     const orderDetail: any; // = {};
+     const orderDetail: any = {}; // = {};
 
      // Orderdetail is object which hold all the value, which needs to be saved into database
-     orderDetail.CustomerId = this.currentUser.Id;
-     orderDetail.CustomerName = this.currentUser.UserName;
+     orderDetail.CustomerId = this.myuser.Id;
+     orderDetail.CustomerName = this.myuser.FullName;
      orderDetail.DeliveryAddress = this.deliveryForm.controls.DeliveryAddress.value;
      orderDetail.Phone = this.deliveryForm.controls.Phone.value;
 
@@ -450,7 +442,7 @@ export class CartComponent implements OnInit {
                  }
                );
 
-  } */
+  }
   onRemoveSelected(product: Product) {
     if (this.productAddedTocart.find(p => p.Id === product.Id).Id) {
       // const key = Object.keys(product)[product.Id - 1];
