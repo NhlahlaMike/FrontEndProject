@@ -1,5 +1,11 @@
 
 <app-nav-menu></app-nav-menu>
+<br />
+<div *ngFor="let pcategory of productCategories">
+  <ul class="list-group">
+    <li class="list-group-item"><strong>SubCategoryName : </strong >{{pcategory.SubCategoryName}}</li>
+  </ul>
+</div>
   <div class="container-fluid">
     <button class="btn btn-warning mb-3 float-right text-uppercase" (click)="decodeToken()"><i class="fa fa-plus"></i> Decode Token</button>
     <button class="btn btn-info mb-3 float-right text-uppercase" (click)="onAddProduct()"><i class="fa fa-plus"></i> Add Product</button>
@@ -35,7 +41,7 @@
         </tr>
       </tbody>
     </table>
-  </div>  
+  </div>
 
     <ng-template #addTemplate>
         <div class="modal-header">
@@ -80,7 +86,7 @@
                       <div *ngIf="ProductType.touched && ProductType.errors" class="errorMessage">
                           <span *ngIf="ProductType.hasError('required')">Product Name is required.</span>
                       </div>
-                  </li>            
+                  </li>
                     <li class="list-group-item">
                       <div class="input-group">
                           <div class="input-group-prepend">
@@ -102,7 +108,7 @@
                       <div *ngIf="Description.touched && Description.errors" class="errorMessage">
                           <span *ngIf="Description.hasError('required')">Product Name is required.</span>
                       </div>
-                  </li>                 
+                  </li>
                     <li class="list-group-item">
                       <div class="input-group">
                         <div class="input-group-prepend">
@@ -178,35 +184,35 @@
                   </div>
                 <select  class="form-control"  formControlName="Category" id="Category" aria-label="Category" aria-describedby="Category">
                     <option [ngValue]="undefined">Select Category</option>
-                    <option>Lotion</option>
-                    <option>Electronic</option>
-                    <option>Food Items</option>
-                    <option>Beuty</option>
-                    <option>Shoes</option>
-                  </select>                  
+                    <option *ngFor="let pcategory of productCategories">{{pcategory.SubCategoryName}}</option>
+                  </select>
               </div>
               <div *ngIf="Category.touched && Category.errors" class="errorMessage">
                   <span *ngIf="Category.hasError('required')">Product Name is required.</span>
               </div>
-          </li>   
+          </li>
           <li class="list-group-item">
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="ProductSubCategoryID"><i class="fa fa-pencil-square-o">ProductSubCategoryID</i></span>
                 </div>
-                <input type="text" id="ProductSubCategoryID" formControlName="ProductSubCategoryID" class="form-control" placeholder="" aria-label="ProductSubCategoryID" aria-describedby="ProductSubCategoryID">
-            </div>
+               <!-- <input type="text" id="ProductSubCategoryID" formControlName="ProductSubCategoryID" class="form-control" placeholder="" aria-label="ProductSubCategoryID" aria-describedby="ProductSubCategoryID">-->
+            <select [(ngModel)]="ProductSubCategoryID" class="form-control" formControlName="ProductSubCategoryID" id="ProductSubCategoryID" aria-label="ProductSubCategoryID" aria-describedby="ProductSubCategoryID">
+              <option [ngValue]="undefined" disabled>Select Category</option>
+              <option *ngFor="let pcategory of productCategories" [ngValue]="pcategory.ProductSubCategoryID">{{pcategory.SubCategoryName}}</option>
+            </select>
+              </div>
             <div *ngIf="ProductSubCategoryID.touched && ProductSubCategoryID.errors" class="errorMessage">
                 <span *ngIf="ProductSubCategoryID.hasError('required')">Product Name is required.</span>
             </div>
-          </li>        
+          </li>
           <li class="list-group-item">
             <button [disabled]="insertForm.invalid" class="btn btn-primary btn-block">UPDATE</button>
           </li>
         </ul>
       </form>
     </div>
-  </ng-template>    
+  </ng-template>
 
     <ng-template #editTemplate>
       <div class="modal-header">
@@ -226,7 +232,7 @@
                     </div>
                     <input type="number" class="form-control" formControlName="Id" />
                   </div>
-        
+
                 </li>
                 <li class="list-group-item">
                     <div class="input-group">
@@ -260,7 +266,7 @@
                     <div *ngIf="_ProductType.touched && _ProductType.errors" class="errorMessage">
                         <span *ngIf="_ProductType.hasError('required')">Product Name is required.</span>
                     </div>
-                </li>            
+                </li>
                   <li class="list-group-item">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -282,7 +288,7 @@
                     <div *ngIf="_Description.touched && _Description.errors" class="errorMessage">
                         <span *ngIf="_Description.hasError('required')">Product Name is required.</span>
                     </div>
-                </li>                 
+                </li>
                   <li class="list-group-item">
                     <div class="input-group">
                       <div class="input-group-prepend">
@@ -361,7 +367,7 @@
             <div *ngIf="_Category.touched && _Category.errors" class="errorMessage">
                 <span *ngIf="_Category.hasError('required')">Product Name is required.</span>
             </div>
-        </li>   
+        </li>
         <li class="list-group-item">
           <div class="input-group">
               <div class="input-group-prepend">
@@ -372,7 +378,7 @@
           <div *ngIf="_ProductSubCategoryID.touched && _ProductSubCategoryID.errors" class="errorMessage">
               <span *ngIf="_ProductSubCategoryID.hasError('required')">Product Name is required.</span>
           </div>
-        </li>        
+        </li>
         <li class="list-group-item">
           <button [disabled]="updateForm.invalid" class="btn btn-primary btn-block">UPDATE</button>
         </li>

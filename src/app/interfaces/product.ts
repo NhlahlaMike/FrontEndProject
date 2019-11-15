@@ -1,3 +1,4 @@
+import { ProductSubCategory } from './../interfaces/product-sub-category';
 export interface Product {
     Id: number;
     Barcode: string;
@@ -13,6 +14,8 @@ export interface Product {
     ImageUrl: string;
     Category: string;
     ProductSubCategoryID: string;
+    SellerId: number;
+    SellerName: string;
     isDisabled: boolean;
-    // ProductSubCategory: ProductSubCategory;
+    ProductSubCategory: ProductSubCategory[];
 }

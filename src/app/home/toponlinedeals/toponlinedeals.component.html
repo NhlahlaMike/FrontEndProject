@@ -1,3 +1,10 @@
+<br />
+<div *ngFor="let pgry of pcategories">
+  <ul class="list-group">
+    <li class="list-group-item"><strong>SubCategoryName : </strong >{{pgry.SubCategoryName}}</li>
+  </ul>
+</div>
+
 <div class="row" id="resizeToDiv">
   <div *ngFor="let product of products" class="col-md-4">
     <div class="card">
@@ -12,7 +19,7 @@
                 <div class="caption">
                   <p>
                     This is the best product available in the market.
-                    {{isDisabled}}
+                    {{product.isDisabled}}
                   </p>
                   <ul class="list-group">
                     <li class="list-group-item"><strong>Email : </strong >{{product.Id}}</li>

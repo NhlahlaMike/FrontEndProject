@@ -8,6 +8,7 @@ import { Observable, Subject } from 'rxjs';
 import { SharedService } from '../../shared/shared.service';
 import { IAlert } from './../../interfaces/ialert';
 import { ProductDisplay } from '../../interfaces/product-display';
+import { ProductSubCategory } from './../../interfaces/product-sub-category';
 
 @Component({
   selector: 'app-toponlinedeals',
@@ -25,7 +26,9 @@ export class ToponlinedealsComponent implements OnInit {
   displayProduct: Product[];
   dafualtQuantity: number;
   selectedProduct: Product;
-
+  pcategory: any;
+  pcategories$: Observable<ProductSubCategory[]>;
+  pcategories: ProductSubCategory[] = [];
   // cart declarations
   public alerts: Array<IAlert> = [];
   cartItemCount = 0;
@@ -48,16 +51,39 @@ export class ToponlinedealsComponent implements OnInit {
       this.cartItemCount = 0;
     }
 
+    /*this.productsb$ = this.pservice.getmyProducts();
+    this.productsb$.subscribe(
+    res => {
+      this.productsb = res;
+      this.globalResponse = res;
+      res.map(item => {
+        this.products = item.Products as Product[];
+        console.log(this.products);
+      });
+    },
+    err => {
+      console.log(err);
+    },
+    () => {
+      this.allProducts = this.globalResponse;
+
+    }
+  );*/
+
     // load all products from database
     this.products$ = this.pservice.getProducts();
     this.products$.subscribe(
     res => {
       this.products = res;
       this.globalResponse = res;
-      res.map(item => {
-        console.log(item);
+      this.pcategory = res.map(item => item.ProductSubCategory);
+      this.pcategory = this.pcategory as ProductSubCategory[];
+      // convert an object into an array
+      this.pcategories = Object.keys(this.pcategory).map( (index) => {
+      const category = this.pcategory[index];
+      return category;
       });
-
+      console.log(this.pcategories);
     },
     err => {
       console.log(err);
@@ -67,7 +93,6 @@ export class ToponlinedealsComponent implements OnInit {
 
     }
   );
-
   // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < 4; i++) {
     // this.isDisabled.push(true);

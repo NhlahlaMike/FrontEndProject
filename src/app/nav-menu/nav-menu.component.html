@@ -11,7 +11,7 @@
           <li class="nav-item">
             <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]'>Home</a>
           </li>
-          <li ngbDropdown class=" nav-item dropdown" *ngIf="(LoginStatus$ | async) as LoginStatus">       
+          <li ngbDropdown class=" nav-item dropdown" *ngIf="(LoginStatus$ | async) as LoginStatus">
                   <a *ngIf="(UserName$ | async) as UserName" ngbDropdownToggle href='#'  class="nav-link dropdown-toggle text-white" id="navbardrop" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       {{UserName | uppercase}}
                     <span class="caret"></span></a>
@@ -19,7 +19,7 @@
                     <a class="nav-item text-white dropdown-item" href="#">Action</a>
                     <a class="nav-item text-white dropdown-item" href="#">Another action</a>
                     <a (click)="onLogout()" class="nav-item text-white dropdown-item" href="#">SIGNOUT</a>
-                  </div>      
+                  </div>
         </li>
       <li class="collapse navbar-collapse" id="navbarCollapse" *ngIf="!(LoginStatus$ | async) as LoginStatus">
         <div class="navbar-nav ml-auto">
@@ -29,11 +29,11 @@
         </div>
       </li>
       <li class="nav-item">
-        <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]' (click)="LogOut()">LogOut</a>
+        <a style="font-size: 12px; font-weight: 600;" class="nav-link text-white" [routerLink]='["/"]' (click)="onLogout()">LogOut</a>
       </li>
       <li class="nav-item">
           <a class="nav-link" routerLink="/adminpanel">Admin Panel</a>
-      </li>  
+      </li>
   </ul>
   </div>
     </nav>
@@ -52,32 +52,32 @@
           <div class="form-group has-search">
             <span class="fa fa-search form-control-feedback"></span>
             <input style="width: 300px" type="search" class="form-control mr-sm-2" placeholder="I'm looking for" aria-label="Search">
-          </div>          
+          </div>
       </form>
     </li>
     <li class="nav-item">
       <button class="btn btn-blue text-white" [routerLink]='["/"]'><i class="far fa-heart"></i> &nbsp; FAVOURATE</button>
-    </li> 
+    </li>
     <li><span>&nbsp;&nbsp;</span></li>
     <li class="nav-item">
       <button class="btn btn-black text-white" [routerLink]='["/"]'><i class="fas fa-list"></i> &nbsp; SHOPPING LIST</button>
-    </li> 
+    </li>
       <li class="nav-item" id="cart">
         <a class="nav-link text-white" [routerLink]='["/cart"]'>
           <i style="color: #ab2247; font-size: 20px" class="fa fa-shopping-cart has-badge"></i> {{cartItemCount}} <span style="background-color: #ab2247;" class="badge badge-light text-white">3</span>
         </a>
-      </li> 
+      </li>
       <li class="nav-item" id="cart">
         <a class="nav-link text-white" [routerLink]='["/cart"]'>
-          <i style="color: grey; font-size: 20px" class="fas fa-truck"></i> 
+          <i style="color: grey; font-size: 20px" class="fas fa-truck"></i>
         </a>
-      </li>       
+      </li>
       <li class="nav-item" id="cart">
         <a class="p1 fa-stack fa-2x has-badge nav-link text-white" [routerLink]='["/cart"]' [attr.data-count]="0">
           <i style="color: grey; font-size: 20px" class="p3 fa fa-shopping-cart fa-stack-1x xfa-inverse" data-count="0b"></i>
         </a>
-      </li>              
+      </li>
   </ul>
   </div>
-    </nav>     
+    </nav>
   </header>

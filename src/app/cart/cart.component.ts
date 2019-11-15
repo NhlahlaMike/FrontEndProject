@@ -14,6 +14,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable, Subject, ReplaySubject} from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { ResourceLoader } from '../../../node_modules/@angular/compiler';
+import { OrderService } from '../shared/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -58,7 +59,8 @@ export class CartComponent implements OnInit {
               private modalService: BsModalService,
               private pservice: ProductService,
               private uservice: UserService,
-              private sharedService: SharedService) {
+              private sharedService: SharedService,
+              private orderService: OrderService) {
 
                 router.events
                 .subscribe((event: NavigationStart) => {
@@ -309,6 +311,8 @@ export class CartComponent implements OnInit {
     const id = this.productAddedTocart.find(p => p.Id === pid).Id;
     // console.log(Object.keys(product)[0]);
     let idFromCart = null;
+
+    // obtain key of an object and values
     const key = Object.keys(product)[pid - 1];
     const val = product[key];
     // works
@@ -408,7 +412,7 @@ export class CartComponent implements OnInit {
          ID: 0,
          ProductID: this.productAddedTocart[i].Id,
          SellerID: this.productAddedTocart[i].SellerId,
-         ProductName: this.productAddedTocart[i].Name,
+         ProductName: this.productAddedTocart[i].ProductName,
          OrderedQuantity: this.productAddedTocart[i].Quantity,
          PerUnitPrice: this.productAddedTocart[i].UnitPrice,
          OrderID: 0,

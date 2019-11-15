@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, throwError, pipe } from 'rxjs';
 import { Product } from '../interfaces/Product';
 import { flatMap, first, shareReplay } from 'rxjs/operators';
+import { ProductSubCategory } from '../interfaces/product-sub-category';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,21 @@ export class ProductService {
   readonly BaseURI = 'http://localhost:54277/api/Product';
 
   private	product$: Observable<Product[]>;
+  private	myproduct$: Observable<ProductSubCategory[]>;
+  private categories$: Observable<ProductSubCategory[]>;
+
+  getmyProducts(): Observable<ProductSubCategory[]> {
+    if (!this.myproduct$) {
+      this.myproduct$ = this.http.get < ProductSubCategory[] > (this.BaseURI + '/GetProducts').pipe(shareReplay());
+    }
+    return this.myproduct$;
+  }
+  getCategories(): Observable<ProductSubCategory[]> {
+    if (!this.categories$) {
+      this.categories$ = this.http.get < ProductSubCategory[] > (this.BaseURI + '/GetCategories').pipe(shareReplay());
+    }
+    return this.categories$;
+  }
 
   // Get All Products
   getProducts(): Observable<Product[]> {

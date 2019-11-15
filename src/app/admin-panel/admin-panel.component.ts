@@ -8,6 +8,7 @@ import { ProductService } from '../shared/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject } from 'rxjs';
 import { DataTableDirective } from 'angular-datatables';
+import { ProductSubCategory } from '../interfaces/product-sub-category';
 
 @Component({
   selector: 'app-admin-panel',
@@ -21,7 +22,9 @@ export class AdminPanelComponent implements OnInit {
   LoginStatus$: Observable<boolean>;
   UserName$: Observable<string>;
   Categories: string;
-
+  productCategories$: Observable<ProductSubCategory[]>;
+  productCategories: ProductSubCategory[] = [];
+  readCategories: any;
   // Datatables Properties
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
@@ -104,6 +107,14 @@ export class AdminPanelComponent implements OnInit {
       order: [[0, 'asc']]
     };
 
+    this.productCategories$ = this.pservice.getCategories();
+    this.productCategories$.subscribe(res => {
+      this.readCategories = res as ProductSubCategory[];
+      this.productCategories = Object.keys(this.readCategories).map( (index) => {
+        const theCategory = this.readCategories[index];
+        return theCategory;
+      });
+    });
 
     this.products$ = this.pservice.getProducts();
 
@@ -226,7 +237,7 @@ export class AdminPanelComponent implements OnInit {
           this.products$ = this.pservice.getProducts();
           this.products$.subscribe(updatedlist => {
           this.products = updatedlist;
-
+          this.toastr.success('Product Updated', 'Product Updated successful.');
           this.modalRef.hide();
           this.rerender();
           });
@@ -289,11 +300,11 @@ export class AdminPanelComponent implements OnInit {
     this.pservice.insertProduct(newProduct).subscribe(
       (res: any) => {
         if (res.succeeded) {
-          this.modalRef.hide();
-          this.toastr.success('New user created!', 'Registration successful.');
           this.insertForm.reset();
-          this.rerender();
         }
+        this.modalRef.hide();
+        this.rerender();
+        this.toastr.success('Product Added', 'Product Added successful.');
       },
       err => {
         console.log(err);
@@ -308,6 +319,7 @@ export class AdminPanelComponent implements OnInit {
       this.products$ = this.pservice.getProducts();
       this.products$.subscribe(newlist => {
       this.products = newlist;
+      this.toastr.success('Product Deleted', 'Product Deleted successful.');
       this.rerender();
       });
     });

@@ -3,7 +3,7 @@ export interface OrderItem {
     ProductID: number;
     SellerID: number;
     ProductName: string;
-    OrderedQuantit: number;
+    OrderedQuantity: number;
     PerUnitPrice: number;
     OrderID: number;
 }
