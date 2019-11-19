@@ -36,8 +36,10 @@ export class ToponlinedealsComponent implements OnInit {
   public globalResponse: any;
   yourByteArray: any;
   productAddedTocart: Product[];
+  productAddedToFavourite: Product[];
   productViedFromCart: Product[]; // not used
   // isDisabled: boolean[] = [];
+  isActive: boolean[] = [];
 
   constructor(private fb: FormBuilder,
               private toastr: ToastrService,
@@ -50,6 +52,15 @@ export class ToponlinedealsComponent implements OnInit {
     if (this.cartItemCount < 1 ) {
       this.cartItemCount = 0;
     }
+    this.pservice.getnewheart();
+    if (this.pservice.getHeartToggle() !== null) {
+        this.isActive = this.pservice.getHeartToggle();
+    }
+
+    // subscribe to global observable value
+    /*this.pservice.isActiveValue.subscribe(res => {
+      this.isActive = res;
+    });*/
 
     /*this.productsb$ = this.pservice.getmyProducts();
     this.productsb$.subscribe(
@@ -189,6 +200,62 @@ export class ToponlinedealsComponent implements OnInit {
     // console.log(this.productAddedTocart);
   }
 
+  AddToList(product: Product) {
+
+  }
+   /* TOOO */
+  AddToFavourite(product: Product) {
+    this.productAddedToFavourite = this.pservice.getProductsFromFavourites();
+
+    if (this.productAddedToFavourite === null) {
+      this.productAddedToFavourite = [];
+      this.productAddedToFavourite.push(product);
+      this.pservice.addProductsFromFavourites(this.productAddedToFavourite);
+      setTimeout(() => {
+        this.toastr.success('Add Successful!', 'Product Added Successfully!', {timeOut: 1000});
+   }, 500);
+
+      this.pservice.heartToggle(product);
+      this.isActive = this.pservice.getHeartToggle();
+      this.pservice.getnewheart();
+    } else {
+      const ObjfavProduct = JSON.parse(JSON.stringify(this.productAddedToFavourite));
+      let CheckfavProduct = null;
+
+      // check product from favProduct localStorage (null is defined as undefined)
+      /*
+        Something hasn't been initialized : undefined.
+        Something is currently unavailable: null.
+      */
+      CheckfavProduct = ObjfavProduct.find(p => p.Id === product.Id);
+
+      // works fine
+     /* ObjfavProduct.forEach((item, index) => {
+        if (product.Id === item.Id) {
+            CheckfavProduct = item.Id;
+        }
+      });
+
+    if (CheckfavProduct === null) {
+      */
+      if (CheckfavProduct === undefined) {
+          this.productAddedToFavourite.push(product);
+          this.pservice.addProductsFromFavourites(this.productAddedToFavourite);
+          setTimeout(() => {
+            this.toastr.success('Add Successful!', 'Product Added Successfully!', {timeOut: 1000});
+       }, 500);
+
+          this.pservice.heartToggle(product);
+          this.isActive = this.pservice.getHeartToggle();
+          this.pservice.getnewheart();
+      } else {
+        setTimeout(() => {
+          this.toastr.error('Add Failed!', 'Product already exist!', {timeOut: 1000});
+     }, 500);
+      }
+    }
+  }
+
   public closeAlert(alert: any) {
     const index: number = this.alerts.indexOf(alert);
     this.alerts.splice(index, 1);
@@ -231,7 +298,6 @@ selectedPic(product: Product) {
 
 onSelect(product: Product): void {
     this.selectedProduct = product;
-
     this.router.navigateByUrl('/ProductView/' + product.Id);
 }
 

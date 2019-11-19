@@ -6,7 +6,7 @@
 </div>
 
 <div class="row" id="resizeToDiv">
-  <div *ngFor="let product of products" class="col-md-4">
+  <div *ngFor="let product of products; let i = index" class="col-md-4">
     <div class="card">
       <div class="card-body">
              <div class="thumbnail">
@@ -44,6 +44,11 @@
                   </div><br/>
                   <div class="col-md-8">
                     <button  class="btn btn-primary custom-btn-red text-white" (click)="OnAddCart(product)" role="button"><b>Add to Trolly</b></button>
+                  </div>
+                  <br />
+                  <div class="col-md-4">
+                    <button class="btn btn-default" (click)="AddToFavourite(product)" role="button"><i class="fa fa-heart" aria-hidden="true" [ngClass]="{'active': isActive[product.Id]}"></i></button>
+                    <button class="btn btn-default" (click)="AddToList(product)" role="button"><i class="fa fa-list" aria-hidden="true"></i></button>
                   </div>
                 </div>
               </div>

@@ -27,6 +27,8 @@ import { CarouselComponent } from './home/carousel/carousel.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AccordionPanelComponent } from 'ngx-bootstrap/accordion';
 import { ProductViewComponent } from './home/product-view/product-view.component';
+import { ListItemsComponent } from './list-items/list-items.component';
+import { FavouriteComponent } from './favourite/favourite.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { ProductViewComponent } from './home/product-view/product-view.component
     ToponlinedealsComponent,
     CartComponent,
     CarouselComponent,
-    ProductViewComponent
+    ProductViewComponent,
+    ListItemsComponent,
+    FavouriteComponent
   ],
   imports: [
     BrowserModule,

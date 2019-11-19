@@ -15,3 +15,10 @@
 #resizeToDiv div, .card{
 
 }
+.fa-heart {
+  color: black;
+}
+
+.fa-heart.active {
+  color: rgb(46, 46, 184);
+}
